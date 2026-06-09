@@ -1,0 +1,11 @@
+# Exclude training files — keeps Docker build fast
+data/
+pipeline/
+logs/
+*.ipynb
+__pycache__/
+*.pyc
+*.pyo
+.git/
+.env
+venv/

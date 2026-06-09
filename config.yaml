@@ -1,0 +1,49 @@
+# =====================================================================
+# silicosis-detector — config.yaml
+# ALL paths and settings here. Zero hardcoded values in any .py file.
+# =====================================================================
+
+model_settings:
+  architecture: "DenseNet121"
+  weights_path: "models/silicosis_model.onnx"        # ONNX — used by Docker
+  gradcam_weights_path: "models/best_silicosis_model.pth"  # PyTorch — Grad-CAM
+  confidence_threshold: 0.50
+  num_ilo_classes: 12
+  num_pmf_classes: 4
+  dropout: 0.3
+
+  # Grad-CAM target: exact layer path in DenseNet121
+  gradcam_layer: "features.denseblock4.denselayer16.conv2"
+
+image_settings:
+  size: 512          # resize to this first (matches your notebook)
+  crop: 448          # center-crop to this for inference
+  channels: 3
+  mean: [0.485, 0.456, 0.406]
+  std:  [0.229, 0.224, 0.225]
+
+server_settings:
+  host: "0.0.0.0"
+  port: 8000
+
+# ILO 12-point profusion scale (index 0-11)
+ilo_classes:
+  - "0/-"
+  - "0/0"
+  - "0/1"
+  - "1/0"
+  - "1/1"
+  - "1/2"
+  - "2/1"
+  - "2/2"
+  - "2/3"
+  - "3/2"
+  - "3/3"
+  - "3/+"
+
+# PMF grades (index 0-3)
+pmf_classes:
+  - "None"
+  - "A"
+  - "B"
+  - "C"
